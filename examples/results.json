@@ -1,0 +1,1561 @@
+{
+ "experiment": {
+  "commit": "b1f62d394ac79250df9ce555d3a55d85cf1cd517",
+  "sha256": {
+   "results.json": "62fb0a016ba2f21ce3a3af9ae2f6d77c11202ce2e7127436f24431a7ba80e520",
+   "results.md": "bf85a2b35d1f3a5b6aed392fa0781eabe3f55a45cfc1964c769b361633752618"
+  },
+  "params": 15833472,
+  "workers": 8,
+  "tokens_per_worker": 2048
+ },
+ "inputs": [
+  {
+   "variant": "adamw",
+   "payload": 31666944.0,
+   "bytes_per_param": 2.0,
+   "model_wire": 55417152.0,
+   "experiment_wire": 55417152.0
+  },
+  {
+   "variant": "topk",
+   "payload": 3957960.0,
+   "bytes_per_param": 0.249974,
+   "model_wire": 27705720.0,
+   "experiment_wire": 27705720
+  },
+  {
+   "variant": "band",
+   "payload": 1979184.0,
+   "bytes_per_param": 0.125,
+   "model_wire": 13854288.0,
+   "experiment_wire": 13854288
+  },
+  {
+   "variant": "band-allreduce",
+   "payload": 1979184.0,
+   "bytes_per_param": 0.125,
+   "model_wire": 3463572.0,
+   "experiment_wire": null
+  },
+  {
+   "variant": "band-pluggable",
+   "payload": 1979184.0,
+   "bytes_per_param": 0.125,
+   "model_wire": 13854288.0,
+   "experiment_wire": 13854288
+  },
+  {
+   "variant": "band-switch",
+   "payload": 1979184.0,
+   "bytes_per_param": 0.125,
+   "model_wire": 31666944.0,
+   "experiment_wire": null
+  }
+ ],
+ "ladder": {
+  "A  AdamW, all-reduce": [
+   400.0,
+   400.0,
+   400.0,
+   2000.0,
+   null
+  ],
+  "B  DeMo, top-k, 2-D 64x64 chunks": [
+   400.0,
+   400.0,
+   400.0,
+   null,
+   null
+  ],
+  "C  DeMo, fixed band, 1-D 256-point chunks": [
+   2667.0,
+   null,
+   null,
+   null,
+   null
+  ],
+  "E  DeMo, band via emulated optics, 1-D 256-point chunks, ENOB 6, 8 planes, full scale re-set every 100 steps, feedback of the band sent": [
+   null,
+   null,
+   null,
+   null,
+   null
+  ],
+  "E  DeMo, band via emulated optics, 1-D 256-point chunks, ENOB 8, 8 planes, full scale re-set every 100 steps, feedback of the band sent": [
+   1800.0,
+   2000.0,
+   2200.0,
+   null,
+   null
+  ],
+  "E  DeMo, band via emulated optics, 1-D 256-point chunks, ENOB 10, 8 planes, full scale re-set every 100 steps, feedback of the band sent": [
+   1600.0,
+   1800.0,
+   1800.0,
+   null,
+   null
+  ],
+  "E  DeMo, band via emulated optics, 1-D 256-point chunks, ENOB 12, 8 planes, full scale re-set every 100 steps, feedback of the band sent": [
+   1800.0,
+   2000.0,
+   2000.0,
+   null,
+   null
+  ]
+ },
+ "time_to_target": {
+  "A  AdamW, dense ring all-reduce": {
+   "1 DC x 8": {
+    "steps": 400.0,
+    "step_ms": 1.74016,
+    "seconds": 0.696063,
+    "hot_spot": "intra-DC link"
+   },
+   "2 DC x 4, 100 GbE": {
+    "steps": 400.0,
+    "step_ms": 4.07518,
+    "seconds": 1.63007,
+    "hot_spot": "inter-DC link"
+   },
+   "2 DC x 4, 25 GbE": {
+    "steps": 400.0,
+    "step_ms": 11.6752,
+    "seconds": 4.6701,
+    "hot_spot": "inter-DC link"
+   },
+   "2 DC x 4, 400G": {
+    "steps": 400.0,
+    "step_ms": 2.17516,
+    "seconds": 0.870065,
+    "hot_spot": "intra-DC link"
+   },
+   "2 DC x 4, 800G": {
+    "steps": 400.0,
+    "step_ms": 1.85849,
+    "seconds": 0.743397,
+    "hot_spot": "intra-DC link"
+   },
+   "8 DC x 1, 100 GbE": {
+    "steps": 400.0,
+    "step_ms": 5.20519,
+    "seconds": 2.08207,
+    "hot_spot": "inter-DC link"
+   },
+   "8 DC x 1, 25 GbE": {
+    "steps": 400.0,
+    "step_ms": 18.5053,
+    "seconds": 7.40212,
+    "hot_spot": "inter-DC link"
+   },
+   "2 DC x 4, 8 Gb/s": {
+    "steps": 400.0,
+    "step_ms": 33.2088,
+    "seconds": 13.2835,
+    "hot_spot": "inter-DC link"
+   }
+  },
+  "B  DeMo top-k, all-gather": {
+   "1 DC x 8": {
+    "steps": 400.0,
+    "step_ms": 1.11721,
+    "seconds": 0.446884,
+    "hot_spot": "intra-DC link"
+   },
+   "2 DC x 4, 100 GbE": {
+    "steps": 400.0,
+    "step_ms": 2.3146,
+    "seconds": 0.925839,
+    "hot_spot": "inter-DC link"
+   },
+   "2 DC x 4, 25 GbE": {
+    "steps": 400.0,
+    "step_ms": 6.11424,
+    "seconds": 2.4457,
+    "hot_spot": "inter-DC link"
+   },
+   "2 DC x 4, 400G": {
+    "steps": 400.0,
+    "step_ms": 1.36469,
+    "seconds": 0.545875,
+    "hot_spot": "intra-DC link"
+   },
+   "2 DC x 4, 800G": {
+    "steps": 400.0,
+    "step_ms": 1.20637,
+    "seconds": 0.482547,
+    "hot_spot": "intra-DC link"
+   },
+   "8 DC x 1, 100 GbE": {
+    "steps": 400.0,
+    "step_ms": 2.84955,
+    "seconds": 1.13982,
+    "hot_spot": "inter-DC link"
+   },
+   "8 DC x 1, 25 GbE": {
+    "steps": 400.0,
+    "step_ms": 9.49893,
+    "seconds": 3.79957,
+    "hot_spot": "inter-DC link"
+   },
+   "2 DC x 4, 8 Gb/s": {
+    "steps": 400.0,
+    "step_ms": 16.8799,
+    "seconds": 6.75196,
+    "hot_spot": "inter-DC link"
+   }
+  },
+  "C  fixed band on the GPU, all-gather": {
+   "1 DC x 8": {
+    "steps": 2667.0,
+    "step_ms": 0.8397,
+    "seconds": 2.23948,
+    "hot_spot": "compute"
+   },
+   "2 DC x 4, 100 GbE": {
+    "steps": 2667.0,
+    "step_ms": 1.44346,
+    "seconds": 3.8497,
+    "hot_spot": "inter-DC link"
+   },
+   "2 DC x 4, 25 GbE": {
+    "steps": 2667.0,
+    "step_ms": 3.34347,
+    "seconds": 8.91704,
+    "hot_spot": "inter-DC link"
+   },
+   "2 DC x 4, 400G": {
+    "steps": 2667.0,
+    "step_ms": 0.968451,
+    "seconds": 2.58286,
+    "hot_spot": "compute"
+   },
+   "2 DC x 4, 800G": {
+    "steps": 2667.0,
+    "step_ms": 0.889284,
+    "seconds": 2.37172,
+    "hot_spot": "compute"
+   },
+   "8 DC x 1, 100 GbE": {
+    "steps": 2667.0,
+    "step_ms": 1.74096,
+    "seconds": 4.64313,
+    "hot_spot": "inter-DC link"
+   },
+   "8 DC x 1, 25 GbE": {
+    "steps": 2667.0,
+    "step_ms": 5.06599,
+    "seconds": 13.511,
+    "hot_spot": "inter-DC link"
+   },
+   "2 DC x 4, 8 Gb/s": {
+    "steps": 2667.0,
+    "step_ms": 8.72685,
+    "seconds": 23.2745,
+    "hot_spot": "inter-DC link"
+   }
+  },
+  "E  band in transit (pluggable), all-gather [low]": {
+   "1 DC x 8": {
+    "steps": 1800.0,
+    "step_ms": 32.7839,
+    "seconds": 59.0111,
+    "hot_spot": "module compute"
+   },
+   "2 DC x 4, 100 GbE": {
+    "steps": 1800.0,
+    "step_ms": 33.3481,
+    "seconds": 60.0266,
+    "hot_spot": "module compute"
+   },
+   "2 DC x 4, 25 GbE": {
+    "steps": 1800.0,
+    "step_ms": 35.2481,
+    "seconds": 63.4466,
+    "hot_spot": "module compute"
+   },
+   "2 DC x 4, 400G": {
+    "steps": 1800.0,
+    "step_ms": 32.8731,
+    "seconds": 59.1716,
+    "hot_spot": "module compute"
+   },
+   "2 DC x 4, 800G": {
+    "steps": 1800.0,
+    "step_ms": 32.7939,
+    "seconds": 59.0291,
+    "hot_spot": "module compute"
+   },
+   "8 DC x 1, 100 GbE": {
+    "steps": 1800.0,
+    "step_ms": 33.4081,
+    "seconds": 60.1346,
+    "hot_spot": "module compute"
+   },
+   "8 DC x 1, 25 GbE": {
+    "steps": 1800.0,
+    "step_ms": 36.7331,
+    "seconds": 66.1196,
+    "hot_spot": "module compute"
+   },
+   "2 DC x 4, 8 Gb/s": {
+    "steps": 1800.0,
+    "step_ms": 40.6315,
+    "seconds": 73.1367,
+    "hot_spot": "module compute"
+   }
+  },
+  "E  band in transit (pluggable), all-gather [high]": {
+   "1 DC x 8": {
+    "steps": 1800.0,
+    "step_ms": 4.31567,
+    "seconds": 7.7682,
+    "hot_spot": "module compute"
+   },
+   "2 DC x 4, 100 GbE": {
+    "steps": 1800.0,
+    "step_ms": 4.87984,
+    "seconds": 8.78371,
+    "hot_spot": "module compute"
+   },
+   "2 DC x 4, 25 GbE": {
+    "steps": 1800.0,
+    "step_ms": 6.77986,
+    "seconds": 12.2037,
+    "hot_spot": "module compute"
+   },
+   "2 DC x 4, 400G": {
+    "steps": 1800.0,
+    "step_ms": 4.40483,
+    "seconds": 7.9287,
+    "hot_spot": "module compute"
+   },
+   "2 DC x 4, 800G": {
+    "steps": 1800.0,
+    "step_ms": 4.32567,
+    "seconds": 7.7862,
+    "hot_spot": "module compute"
+   },
+   "8 DC x 1, 100 GbE": {
+    "steps": 1800.0,
+    "step_ms": 4.93984,
+    "seconds": 8.89171,
+    "hot_spot": "module compute"
+   },
+   "8 DC x 1, 25 GbE": {
+    "steps": 1800.0,
+    "step_ms": 8.26487,
+    "seconds": 14.8768,
+    "hot_spot": "inter-DC link"
+   },
+   "2 DC x 4, 8 Gb/s": {
+    "steps": 1800.0,
+    "step_ms": 12.1632,
+    "seconds": 21.8938,
+    "hot_spot": "inter-DC link"
+   }
+  },
+  "E  band in transit (pluggable), all-gather [free]": {
+   "1 DC x 8": {
+    "steps": 1800.0,
+    "step_ms": 3.37891,
+    "seconds": 6.08204,
+    "hot_spot": "module optics"
+   },
+   "2 DC x 4, 100 GbE": {
+    "steps": 1800.0,
+    "step_ms": 3.94308,
+    "seconds": 7.09755,
+    "hot_spot": "module optics"
+   },
+   "2 DC x 4, 25 GbE": {
+    "steps": 1800.0,
+    "step_ms": 5.8431,
+    "seconds": 10.5176,
+    "hot_spot": "inter-DC link"
+   },
+   "2 DC x 4, 400G": {
+    "steps": 1800.0,
+    "step_ms": 3.46808,
+    "seconds": 6.24254,
+    "hot_spot": "module optics"
+   },
+   "2 DC x 4, 800G": {
+    "steps": 1800.0,
+    "step_ms": 3.38891,
+    "seconds": 6.10004,
+    "hot_spot": "module optics"
+   },
+   "8 DC x 1, 100 GbE": {
+    "steps": 1800.0,
+    "step_ms": 4.00308,
+    "seconds": 7.20555,
+    "hot_spot": "module optics"
+   },
+   "8 DC x 1, 25 GbE": {
+    "steps": 1800.0,
+    "step_ms": 7.32811,
+    "seconds": 13.1906,
+    "hot_spot": "inter-DC link"
+   },
+   "2 DC x 4, 8 Gb/s": {
+    "steps": 1800.0,
+    "step_ms": 11.2265,
+    "seconds": 20.2077,
+    "hot_spot": "inter-DC link"
+   }
+  },
+  "C' fixed band on the GPU, ring all-reduce (hypothetical)": {
+   "1 DC x 8": {
+    "steps": 2667.0,
+    "step_ms": 0.701886,
+    "seconds": 1.87193,
+    "hot_spot": "compute"
+   },
+   "2 DC x 4, 100 GbE": {
+    "steps": 2667.0,
+    "step_ms": 0.810325,
+    "seconds": 2.16114,
+    "hot_spot": "compute"
+   },
+   "2 DC x 4, 25 GbE": {
+    "steps": 2667.0,
+    "step_ms": 1.28533,
+    "seconds": 3.42797,
+    "hot_spot": "inter-DC link"
+   },
+   "2 DC x 4, 400G": {
+    "steps": 2667.0,
+    "step_ms": 0.691574,
+    "seconds": 1.84443,
+    "hot_spot": "compute"
+   },
+   "2 DC x 4, 800G": {
+    "steps": 2667.0,
+    "step_ms": 0.671782,
+    "seconds": 1.79164,
+    "hot_spot": "compute"
+   },
+   "8 DC x 1, 100 GbE": {
+    "steps": 2667.0,
+    "step_ms": 1.0497,
+    "seconds": 2.79955,
+    "hot_spot": "inter-DC link"
+   },
+   "8 DC x 1, 25 GbE": {
+    "steps": 2667.0,
+    "step_ms": 1.88096,
+    "seconds": 5.01651,
+    "hot_spot": "inter-DC link"
+   },
+   "2 DC x 4, 8 Gb/s": {
+    "steps": 2667.0,
+    "step_ms": 2.63117,
+    "seconds": 7.01734,
+    "hot_spot": "inter-DC link"
+   }
+  },
+  "E' band in transit, summed at the switch (hypothetical) [low]": {
+   "1 DC x 8": {
+    "steps": 1800.0,
+    "step_ms": 32.9403,
+    "seconds": 59.2925,
+    "hot_spot": "module compute"
+   },
+   "2 DC x 4, 100 GbE": {
+    "steps": 1800.0,
+    "step_ms": 33.1312,
+    "seconds": 59.6361,
+    "hot_spot": "module compute"
+   },
+   "2 DC x 4, 25 GbE": {
+    "steps": 1800.0,
+    "step_ms": 33.6062,
+    "seconds": 60.4911,
+    "hot_spot": "module compute"
+   },
+   "2 DC x 4, 400G": {
+    "steps": 1800.0,
+    "step_ms": 33.0124,
+    "seconds": 59.4224,
+    "hot_spot": "module compute"
+   },
+   "2 DC x 4, 800G": {
+    "steps": 1800.0,
+    "step_ms": 32.9926,
+    "seconds": 59.3868,
+    "hot_spot": "module compute"
+   },
+   "8 DC x 1, 100 GbE": {
+    "steps": 1800.0,
+    "step_ms": 33.4899,
+    "seconds": 60.2819,
+    "hot_spot": "module compute"
+   },
+   "8 DC x 1, 25 GbE": {
+    "steps": 1800.0,
+    "step_ms": 34.3212,
+    "seconds": 61.7781,
+    "hot_spot": "module compute"
+   },
+   "2 DC x 4, 8 Gb/s": {
+    "steps": 1800.0,
+    "step_ms": 34.952,
+    "seconds": 62.9137,
+    "hot_spot": "module compute"
+   }
+  },
+  "E' band in transit, summed at the switch (hypothetical) [high]": {
+   "1 DC x 8": {
+    "steps": 1800.0,
+    "step_ms": 4.46459,
+    "seconds": 8.03625,
+    "hot_spot": "module compute"
+   },
+   "2 DC x 4, 100 GbE": {
+    "steps": 1800.0,
+    "step_ms": 4.66292,
+    "seconds": 8.39326,
+    "hot_spot": "module compute"
+   },
+   "2 DC x 4, 25 GbE": {
+    "steps": 1800.0,
+    "step_ms": 5.13792,
+    "seconds": 9.24826,
+    "hot_spot": "module compute"
+   },
+   "2 DC x 4, 400G": {
+    "steps": 1800.0,
+    "step_ms": 4.54417,
+    "seconds": 8.1795,
+    "hot_spot": "module compute"
+   },
+   "2 DC x 4, 800G": {
+    "steps": 1800.0,
+    "step_ms": 4.52438,
+    "seconds": 8.14388,
+    "hot_spot": "module compute"
+   },
+   "8 DC x 1, 100 GbE": {
+    "steps": 1800.0,
+    "step_ms": 5.02167,
+    "seconds": 9.03901,
+    "hot_spot": "module compute"
+   },
+   "8 DC x 1, 25 GbE": {
+    "steps": 1800.0,
+    "step_ms": 5.85293,
+    "seconds": 10.5353,
+    "hot_spot": "module compute"
+   },
+   "2 DC x 4, 8 Gb/s": {
+    "steps": 1800.0,
+    "step_ms": 6.48377,
+    "seconds": 11.6708,
+    "hot_spot": "module compute"
+   }
+  },
+  "E' band in transit, summed at the switch (hypothetical) [free]": {
+   "1 DC x 8": {
+    "steps": 1800.0,
+    "step_ms": 3.52783,
+    "seconds": 6.35009,
+    "hot_spot": "module optics"
+   },
+   "2 DC x 4, 100 GbE": {
+    "steps": 1800.0,
+    "step_ms": 3.72616,
+    "seconds": 6.70709,
+    "hot_spot": "module optics"
+   },
+   "2 DC x 4, 25 GbE": {
+    "steps": 1800.0,
+    "step_ms": 4.20117,
+    "seconds": 7.5621,
+    "hot_spot": "module optics"
+   },
+   "2 DC x 4, 400G": {
+    "steps": 1800.0,
+    "step_ms": 3.60741,
+    "seconds": 6.49334,
+    "hot_spot": "module optics"
+   },
+   "2 DC x 4, 800G": {
+    "steps": 1800.0,
+    "step_ms": 3.58762,
+    "seconds": 6.45772,
+    "hot_spot": "module optics"
+   },
+   "8 DC x 1, 100 GbE": {
+    "steps": 1800.0,
+    "step_ms": 4.08491,
+    "seconds": 7.35285,
+    "hot_spot": "module optics"
+   },
+   "8 DC x 1, 25 GbE": {
+    "steps": 1800.0,
+    "step_ms": 4.91617,
+    "seconds": 8.84911,
+    "hot_spot": "module optics"
+   },
+   "2 DC x 4, 8 Gb/s": {
+    "steps": 1800.0,
+    "step_ms": 5.54701,
+    "seconds": 9.98462,
+    "hot_spot": "module optics"
+   }
+  }
+ },
+ "exact_steps": {
+  "E  band in transit (pluggable), all-gather [low]": {
+   "e_steps": 1800.0,
+   "e_time": 60.0266,
+   "c_steps": 2667.0,
+   "c_time": 88.9394
+  },
+  "E  band in transit (pluggable), all-gather [high]": {
+   "e_steps": 1800.0,
+   "e_time": 8.78371,
+   "c_steps": 2667.0,
+   "c_time": 13.0145
+  },
+  "E  band in transit (pluggable), all-gather [free]": {
+   "e_steps": 1800.0,
+   "e_time": 7.09755,
+   "c_steps": 2667.0,
+   "c_time": 10.5162
+  },
+  "E' band in transit, summed at the switch (hypothetical) [low]": {
+   "e_steps": 1800.0,
+   "e_time": 59.6361,
+   "c_steps": 2667.0,
+   "c_time": 88.3609
+  },
+  "E' band in transit, summed at the switch (hypothetical) [high]": {
+   "e_steps": 1800.0,
+   "e_time": 8.39326,
+   "c_steps": 2667.0,
+   "c_time": 12.436
+  },
+  "E' band in transit, summed at the switch (hypothetical) [free]": {
+   "e_steps": 1800.0,
+   "e_time": 6.70709,
+   "c_steps": 2667.0,
+   "c_time": 9.93768
+  }
+ },
+ "ladder_times": {
+  "A  AdamW, dense ring all-reduce": [
+   1.63007,
+   1.63007,
+   1.63007,
+   8.15036,
+   null
+  ],
+  "B  DeMo top-k, all-gather": [
+   0.925839,
+   0.925839,
+   0.925839,
+   null,
+   null
+  ],
+  "C  fixed band on the GPU, all-gather": [
+   3.8497,
+   null,
+   null,
+   null,
+   null
+  ],
+  "E  band in transit (pluggable), all-gather [high]": [
+   8.78371,
+   9.75968,
+   10.7356,
+   null,
+   null
+  ],
+  "C' fixed band on the GPU, ring all-reduce (hypothetical)": [
+   2.16114,
+   null,
+   null,
+   null,
+   null
+  ],
+  "E' band in transit, summed at the switch (hypothetical) [high]": [
+   8.39326,
+   9.32584,
+   10.2584,
+   null,
+   null
+  ]
+ },
+ "utilisation": {
+  "A  AdamW, dense ring all-reduce": {
+   "up": 0.247844,
+   "down": 0.0,
+   "wan": 0.631471,
+   "mod": 0.0
+  },
+  "B  DeMo top-k, all-gather": {
+   "up": 0.231122,
+   "down": 0.0,
+   "wan": 0.555841,
+   "mod": 0.0
+  },
+  "C  fixed band on the GPU, all-gather": {
+   "up": 0.206104,
+   "down": 0.0,
+   "wan": 0.452621,
+   "mod": 0.0
+  },
+  "E  band in transit (pluggable), all-gather [low]": {
+   "up": 0.016043,
+   "down": 0.0,
+   "wan": 0.0195915,
+   "mod": 0.949618
+  },
+  "E  band in transit (pluggable), all-gather [high]": {
+   "up": 0.109636,
+   "down": 0.0,
+   "wan": 0.133885,
+   "mod": 0.655694
+  },
+  "E  band in transit (pluggable), all-gather [free]": {
+   "up": 0.135682,
+   "down": 0.0,
+   "wan": 0.165692,
+   "mod": 0.573897
+  },
+  "C' fixed band on the GPU, ring all-reduce (hypothetical)": {
+   "up": 0.147318,
+   "down": 0.0,
+   "wan": 0.244759,
+   "mod": 0.0
+  },
+  "E' band in transit, summed at the switch (hypothetical) [low]": {
+   "up": 0.0194179,
+   "down": 0.00299317,
+   "wan": 0.00598635,
+   "mod": 0.958255
+  },
+  "E' band in transit, summed at the switch (hypothetical) [high]": {
+   "up": 0.137969,
+   "down": 0.0212672,
+   "wan": 0.0425344,
+   "mod": 0.703389
+  },
+  "E' band in transit, summed at the switch (hypothetical) [free]": {
+   "up": 0.172654,
+   "down": 0.0266138,
+   "wan": 0.0532276,
+   "mod": 0.628822
+  }
+ },
+ "energy": {
+  "A  AdamW, dense ring all-reduce": {
+   "compute": 4.81664,
+   "link": 0.0532005,
+   "module": 0.0,
+   "to_target_j": 1947.93
+  },
+  "B  DeMo top-k, all-gather": {
+   "compute": 3.41222,
+   "link": 0.0265975,
+   "module": 0.0,
+   "to_target_j": 1375.53
+  },
+  "C  fixed band on the GPU, all-gather": {
+   "compute": 2.71379,
+   "link": 0.0133001,
+   "module": 0.0,
+   "to_target_j": 7273.15
+  },
+  "E  band in transit (pluggable), all-gather [low]": {
+   "compute": 28.235,
+   "link": 0.0133001,
+   "module": 3.12698,
+   "to_target_j": 56475.5
+  },
+  "E  band in transit (pluggable), all-gather [high]": {
+   "compute": 5.46036,
+   "link": 0.0133001,
+   "module": 0.462347,
+   "to_target_j": 10684.8
+  },
+  "E  band in transit (pluggable), all-gather [free]": {
+   "compute": 4.71096,
+   "link": 0.0133001,
+   "module": 0.374666,
+   "to_target_j": 9178.07
+  },
+  "C' fixed band on the GPU, ring all-reduce (hypothetical)": {
+   "compute": 2.20729,
+   "link": 0.00332503,
+   "module": 0.0,
+   "to_target_j": 5895.7
+  },
+  "E' band in transit, summed at the switch (hypothetical) [low]": {
+   "compute": 28.0614,
+   "link": 0.0346753,
+   "module": 3.10702,
+   "to_target_j": 56165.6
+  },
+  "E' band in transit, summed at the switch (hypothetical) [high]": {
+   "compute": 5.28683,
+   "link": 0.0346753,
+   "module": 0.442393,
+   "to_target_j": 10375.0
+  },
+  "E' band in transit, summed at the switch (hypothetical) [free]": {
+   "compute": 4.53742,
+   "link": 0.0346753,
+   "module": 0.354712,
+   "to_target_j": 8868.26
+  }
+ },
+ "hot_spots": {
+  "A  AdamW, dense ring all-reduce": {
+   "compute": 0.120685,
+   "intra-DC link": 0.247844,
+   "inter-DC link": 0.631471,
+   "module port": 0.0,
+   "module optics": 0.0,
+   "module compute": 0.0,
+   "FPGA": 0.0
+  },
+  "B  DeMo top-k, all-gather": {
+   "compute": 0.213037,
+   "intra-DC link": 0.231122,
+   "inter-DC link": 0.555841,
+   "module port": 0.0,
+   "module optics": 0.0,
+   "module compute": 0.0,
+   "FPGA": 0.0
+  },
+  "C  fixed band on the GPU, all-gather": {
+   "compute": 0.341275,
+   "intra-DC link": 0.206104,
+   "inter-DC link": 0.452621,
+   "module port": 0.0,
+   "module optics": 0.0,
+   "module compute": 0.0,
+   "FPGA": 0.0
+  },
+  "E  band in transit (pluggable), all-gather [low]": {
+   "compute": 0.0147479,
+   "intra-DC link": 0.0,
+   "inter-DC link": 0.0195915,
+   "module port": 0.016043,
+   "module optics": 0.0,
+   "module compute": 0.949618,
+   "FPGA": 0.0
+  },
+  "E  band in transit (pluggable), all-gather [high]": {
+   "compute": 0.100785,
+   "intra-DC link": 0.0,
+   "inter-DC link": 0.133885,
+   "module port": 0.109636,
+   "module optics": 0.0,
+   "module compute": 0.655694,
+   "FPGA": 0.0
+  },
+  "E  band in transit (pluggable), all-gather [free]": {
+   "compute": 0.124728,
+   "intra-DC link": 0.0,
+   "inter-DC link": 0.165692,
+   "module port": 0.135682,
+   "module optics": 0.573897,
+   "module compute": 0.0,
+   "FPGA": 0.0
+  },
+  "C' fixed band on the GPU, ring all-reduce (hypothetical)": {
+   "compute": 0.607922,
+   "intra-DC link": 0.147318,
+   "inter-DC link": 0.244759,
+   "module port": 0.0,
+   "module optics": 0.0,
+   "module compute": 0.0,
+   "FPGA": 0.0
+  },
+  "E' band in transit, summed at the switch (hypothetical) [low]": {
+   "compute": 0.0148445,
+   "intra-DC link": 0.0209145,
+   "inter-DC link": 0.00598635,
+   "module port": 0.0024197,
+   "module optics": 0.0,
+   "module compute": 0.955835,
+   "FPGA": 0.0
+  },
+  "E' band in transit, summed at the switch (hypothetical) [high]": {
+   "compute": 0.105473,
+   "intra-DC link": 0.148603,
+   "inter-DC link": 0.0425344,
+   "module port": 0.0171925,
+   "module optics": 0.0,
+   "module compute": 0.686197,
+   "FPGA": 0.0
+  },
+  "E' band in transit, summed at the switch (hypothetical) [free]": {
+   "compute": 0.131989,
+   "intra-DC link": 0.185961,
+   "inter-DC link": 0.0532276,
+   "module port": 0.0215147,
+   "module optics": 0.607307,
+   "module compute": 0.0,
+   "FPGA": 0.0
+  }
+ },
+ "module_stages_dense": {
+  "module port": 0.00126668,
+  "module optics": 0.00226192,
+  "module compute": 0.00319868,
+  "FPGA": 0.000791674
+ },
+ "breakeven_bw": [
+  {
+   "x": "band-switch",
+   "y": "adamw",
+   "module": "free",
+   "exact_steps": false,
+   "bw": 1568260000.0,
+   "f_lo": -85.2371,
+   "f_hi": 5.79626,
+   "iterations": 17
+  },
+  {
+   "x": "band-switch",
+   "y": "adamw",
+   "module": "free",
+   "exact_steps": true,
+   "bw": 830242000.0,
+   "f_lo": -64.9843,
+   "f_hi": 8.89128,
+   "iterations": 17
+  },
+  {
+   "x": "band-switch",
+   "y": "adamw",
+   "module": "high",
+   "exact_steps": false,
+   "bw": 1215270000.0,
+   "f_lo": -83.5509,
+   "f_hi": 7.48242,
+   "iterations": 17
+  },
+  {
+   "x": "band-switch",
+   "y": "adamw",
+   "module": "high",
+   "exact_steps": true,
+   "bw": 648265000.0,
+   "f_lo": -62.4859,
+   "f_hi": 11.3896,
+   "iterations": 17
+  },
+  {
+   "x": "band-switch",
+   "y": "topk",
+   "module": "free",
+   "exact_steps": false,
+   "bw": 461465000.0,
+   "f_lo": -21.6992,
+   "f_hi": 6.0001,
+   "iterations": 17
+  },
+  {
+   "x": "band-switch",
+   "y": "topk",
+   "module": "free",
+   "exact_steps": true,
+   "bw": 115897000.0,
+   "f_lo": -1.44634,
+   "f_hi": 9.09512,
+   "iterations": 17
+  },
+  {
+   "x": "band-switch",
+   "y": "topk",
+   "module": "high",
+   "exact_steps": false,
+   "bw": 360268000.0,
+   "f_lo": -20.013,
+   "f_hi": 7.68626,
+   "iterations": 17
+  },
+  {
+   "x": "band-switch",
+   "y": "topk",
+   "module": "high",
+   "exact_steps": true,
+   "bw": null,
+   "f_lo": 1.05199,
+   "f_hi": 11.5935,
+   "iterations": 0
+  },
+  {
+   "x": "band-switch",
+   "y": "band-allreduce",
+   "module": "free",
+   "exact_steps": false,
+   "bw": 366395000.0,
+   "f_lo": -12.4763,
+   "f_hi": 4.68152,
+   "iterations": 17
+  },
+  {
+   "x": "band-switch",
+   "y": "band-allreduce",
+   "module": "free",
+   "exact_steps": true,
+   "bw": null,
+   "f_lo": 7.77654,
+   "f_hi": 7.77654,
+   "iterations": 0
+  },
+  {
+   "x": "band-switch",
+   "y": "band-allreduce",
+   "module": "high",
+   "exact_steps": false,
+   "bw": 269404000.0,
+   "f_lo": -10.7901,
+   "f_hi": 6.36768,
+   "iterations": 17
+  },
+  {
+   "x": "band-switch",
+   "y": "band-allreduce",
+   "module": "high",
+   "exact_steps": true,
+   "bw": null,
+   "f_lo": 10.2749,
+   "f_hi": 10.2749,
+   "iterations": 0
+  },
+  {
+   "x": "band-pluggable",
+   "y": "adamw",
+   "module": "free",
+   "exact_steps": false,
+   "bw": null,
+   "f_lo": 21.1743,
+   "f_hi": 5.47064,
+   "iterations": 0
+  },
+  {
+   "x": "band-pluggable",
+   "y": "adamw",
+   "module": "free",
+   "exact_steps": true,
+   "bw": null,
+   "f_lo": 92.6819,
+   "f_hi": 8.40883,
+   "iterations": 0
+  },
+  {
+   "x": "band-pluggable",
+   "y": "adamw",
+   "module": "high",
+   "exact_steps": false,
+   "bw": null,
+   "f_lo": 22.8604,
+   "f_hi": 7.1568,
+   "iterations": 0
+  },
+  {
+   "x": "band-pluggable",
+   "y": "adamw",
+   "module": "high",
+   "exact_steps": true,
+   "bw": null,
+   "f_lo": 95.1803,
+   "f_hi": 10.9072,
+   "iterations": 0
+  },
+  {
+   "x": "band-pluggable",
+   "y": "topk",
+   "module": "free",
+   "exact_steps": false,
+   "bw": null,
+   "f_lo": 84.7122,
+   "f_hi": 5.67449,
+   "iterations": 0
+  },
+  {
+   "x": "band-pluggable",
+   "y": "topk",
+   "module": "free",
+   "exact_steps": true,
+   "bw": null,
+   "f_lo": 156.22,
+   "f_hi": 8.61267,
+   "iterations": 0
+  },
+  {
+   "x": "band-pluggable",
+   "y": "topk",
+   "module": "high",
+   "exact_steps": false,
+   "bw": null,
+   "f_lo": 86.3984,
+   "f_hi": 7.36065,
+   "iterations": 0
+  },
+  {
+   "x": "band-pluggable",
+   "y": "topk",
+   "module": "high",
+   "exact_steps": true,
+   "bw": null,
+   "f_lo": 158.718,
+   "f_hi": 11.111,
+   "iterations": 0
+  },
+  {
+   "x": "band-pluggable",
+   "y": "band",
+   "module": "free",
+   "exact_steps": false,
+   "bw": 1807700000.0,
+   "f_lo": -64.8411,
+   "f_hi": 3.91834,
+   "iterations": 17
+  },
+  {
+   "x": "band-pluggable",
+   "y": "band",
+   "module": "free",
+   "exact_steps": true,
+   "bw": null,
+   "f_lo": 6.6665,
+   "f_hi": 6.85653,
+   "iterations": 0
+  },
+  {
+   "x": "band-pluggable",
+   "y": "band",
+   "module": "high",
+   "exact_steps": false,
+   "bw": 1251840000.0,
+   "f_lo": -63.155,
+   "f_hi": 5.60451,
+   "iterations": 17
+  },
+  {
+   "x": "band-pluggable",
+   "y": "band",
+   "module": "high",
+   "exact_steps": true,
+   "bw": null,
+   "f_lo": 9.16483,
+   "f_hi": 9.35486,
+   "iterations": 0
+  },
+  {
+   "x": "band-allreduce",
+   "y": "adamw",
+   "module": "high",
+   "exact_steps": false,
+   "bw": 6584100000.0,
+   "f_lo": -72.7608,
+   "f_hi": 1.11474,
+   "iterations": 17
+  },
+  {
+   "x": "band-allreduce",
+   "y": "topk",
+   "module": "high",
+   "exact_steps": false,
+   "bw": 798879000.0,
+   "f_lo": -9.22288,
+   "f_hi": 1.31858,
+   "iterations": 17
+  },
+  {
+   "x": "band",
+   "y": "adamw",
+   "module": "high",
+   "exact_steps": false,
+   "bw": null,
+   "f_lo": 86.0154,
+   "f_hi": 1.5523,
+   "iterations": 0
+  },
+  {
+   "x": "topk",
+   "y": "adamw",
+   "module": "high",
+   "exact_steps": false,
+   "bw": null,
+   "f_lo": -63.5379,
+   "f_hi": -0.203843,
+   "iterations": 0
+  }
+ ],
+ "breakeven_gflops": [
+  {
+   "x": "band-pluggable",
+   "y": "band",
+   "topology": "2 DC x 4, 100 GbE",
+   "gflops": null,
+   "f_lo": 569.181,
+   "f_hi": 3.24785
+  },
+  {
+   "x": "band-switch",
+   "y": "adamw",
+   "topology": "2 DC x 4, 100 GbE",
+   "gflops": null,
+   "f_lo": 572.204,
+   "f_hi": 5.07702
+  },
+  {
+   "x": "band-pluggable",
+   "y": "band",
+   "topology": "2 DC x 4, 8 Gb/s",
+   "gflops": 79853500000.0,
+   "f_lo": 562.867,
+   "f_hi": -3.06685
+  },
+  {
+   "x": "band-switch",
+   "y": "adamw",
+   "topology": "2 DC x 4, 8 Gb/s",
+   "gflops": 77340800000.0,
+   "f_lo": 563.828,
+   "f_hi": -3.29888
+  },
+  {
+   "x": "band-switch",
+   "y": "topk",
+   "topology": "2 DC x 4, 8 Gb/s",
+   "gflops": null,
+   "f_lo": 570.36,
+   "f_hi": 3.23267
+  },
+  {
+   "x": "band-switch",
+   "y": "band-allreduce",
+   "topology": "2 DC x 4, 8 Gb/s",
+   "gflops": null,
+   "f_lo": 570.094,
+   "f_hi": 2.96728
+  },
+  {
+   "x": "band-switch",
+   "y": "adamw",
+   "topology": "8 DC x 1, 25 GbE",
+   "gflops": null,
+   "f_lo": 567.381,
+   "f_hi": 1.44699
+  }
+ ],
+ "gflops_unbound": 140001000000.0,
+ "enob_steps": {
+  "6": [
+   null,
+   null,
+   null,
+   null,
+   null
+  ],
+  "8": [
+   1800.0,
+   2000.0,
+   2200.0,
+   null,
+   null
+  ],
+  "10": [
+   1600.0,
+   1800.0,
+   1800.0,
+   null,
+   null
+  ],
+  "12": [
+   1800.0,
+   2000.0,
+   2000.0,
+   null,
+   null
+  ]
+ },
+ "enob_never": [
+  6
+ ],
+ "targets_no_enob_reaches": [
+  1.785,
+  1.646
+ ],
+ "breakeven_enob": [
+  {
+   "x": "band-pluggable",
+   "y": "band",
+   "topology": "2 DC x 4, 100 GbE",
+   "module": "free",
+   "enob": null,
+   "measured_enob": null,
+   "f_lo": null,
+   "f_hi": 3.24785
+  },
+  {
+   "x": "band-pluggable",
+   "y": "band",
+   "topology": "2 DC x 4, 8 Gb/s",
+   "module": "free",
+   "enob": 8.0,
+   "measured_enob": 8,
+   "f_lo": null,
+   "f_hi": -3.06685
+  },
+  {
+   "x": "band-switch",
+   "y": "adamw",
+   "topology": "2 DC x 4, 8 Gb/s",
+   "module": "free",
+   "enob": 8.0,
+   "measured_enob": 8,
+   "f_lo": null,
+   "f_hi": -3.29888
+  },
+  {
+   "x": "band-switch",
+   "y": "topk",
+   "topology": "2 DC x 4, 8 Gb/s",
+   "module": "free",
+   "enob": null,
+   "measured_enob": null,
+   "f_lo": null,
+   "f_hi": 3.23267
+  },
+  {
+   "x": "band-switch",
+   "y": "band-allreduce",
+   "topology": "2 DC x 4, 8 Gb/s",
+   "module": "free",
+   "enob": null,
+   "measured_enob": null,
+   "f_lo": null,
+   "f_hi": 2.96728
+  },
+  {
+   "x": "band-switch",
+   "y": "adamw",
+   "topology": "2 DC x 4, 8 Gb/s",
+   "module": "high",
+   "enob": 8.0,
+   "measured_enob": 8,
+   "f_lo": null,
+   "f_hi": -1.61272
+  }
+ ],
+ "planes": [
+  {
+   "planes": 4,
+   "module": "free",
+   "steps": 2600.0,
+   "optics_ms": 1.13096,
+   "e_step_ms": 2.94784,
+   "e_time": 7.66437,
+   "e2_step_ms": 2.73092,
+   "e2_time": 7.10038
+  },
+  {
+   "planes": 4,
+   "module": "high",
+   "steps": 2600.0,
+   "optics_ms": 1.13096,
+   "e_step_ms": 4.87984,
+   "e_time": 12.6876,
+   "e2_step_ms": 4.66292,
+   "e2_time": 12.1236
+  },
+  {
+   "planes": 8,
+   "module": "free",
+   "steps": 1800.0,
+   "optics_ms": 2.26192,
+   "e_step_ms": 3.94308,
+   "e_time": 7.09755,
+   "e2_step_ms": 3.72616,
+   "e2_time": 6.70709
+  },
+  {
+   "planes": 8,
+   "module": "high",
+   "steps": 1800.0,
+   "optics_ms": 2.26192,
+   "e_step_ms": 4.87984,
+   "e_time": 8.78371,
+   "e2_step_ms": 4.66292,
+   "e2_time": 8.39326
+  },
+  {
+   "planes": 12,
+   "module": "free",
+   "steps": 2000.0,
+   "optics_ms": 3.39289,
+   "e_step_ms": 5.07404,
+   "e_time": 10.1481,
+   "e2_step_ms": 4.85713,
+   "e2_time": 9.71425
+  },
+  {
+   "planes": 12,
+   "module": "high",
+   "steps": 2000.0,
+   "optics_ms": 3.39289,
+   "e_step_ms": 5.07404,
+   "e_time": 10.1481,
+   "e2_step_ms": 4.85713,
+   "e2_time": 9.71425
+  }
+ ],
+ "background": {
+  "A  AdamW, dense ring all-reduce": {
+   "analytic": 0.00407518,
+   "loads": [
+    0.0,
+    0.3,
+    0.6,
+    0.9
+   ],
+   "step": [
+    0.00407518,
+    0.00460896,
+    0.00661668,
+    0.0262915
+   ],
+   "wan_busy_09": 0.999966
+  },
+  "B  DeMo top-k, all-gather": {
+   "analytic": 0.0023146,
+   "loads": [
+    0.0,
+    0.3,
+    0.6,
+    0.9
+   ],
+   "step": [
+    0.0023146,
+    0.00235351,
+    0.00336158,
+    0.0129285
+   ],
+   "wan_busy_09": 0.999941
+  },
+  "C  fixed band on the GPU, all-gather": {
+   "analytic": 0.00144346,
+   "loads": [
+    0.0,
+    0.3,
+    0.6,
+    0.9
+   ],
+   "step": [
+    0.00144346,
+    0.00147943,
+    0.00184007,
+    0.00655191
+   ],
+   "wan_busy_09": 0.999851
+  },
+  "C' fixed band on the GPU, ring all-reduce (hypothetical)": {
+   "analytic": 0.000810325,
+   "loads": [
+    0.0,
+    0.3,
+    0.6,
+    0.9
+   ],
+   "step": [
+    0.000810325,
+    0.000894253,
+    0.00107839,
+    0.00297528
+   ],
+   "wan_busy_09": 0.972929
+  },
+  "E' band in transit, summed at the switch (hypothetical) [free]": {
+   "analytic": 0.00372616,
+   "loads": [
+    0.0,
+    0.3,
+    0.6,
+    0.9
+   ],
+   "step": [
+    0.00372616,
+    0.00381505,
+    0.00397715,
+    0.00544238
+   ],
+   "wan_busy_09": 0.942663
+  }
+ },
+ "extrapolate_size": {
+  "A  AdamW, dense ring all-reduce": [
+   1.63007,
+   100.465,
+   806.45
+  ],
+  "B  DeMo top-k, all-gather": [
+   0.925839,
+   56.4845,
+   453.345
+  ],
+  "C  fixed band on the GPU, all-gather": [
+   3.8497,
+   229.875,
+   1844.39
+  ],
+  "E  band in transit (pluggable), all-gather [high]": [
+   8.78371,
+   545.693,
+   4380.89
+  ],
+  "E  band in transit (pluggable), all-gather [free]": [
+   7.09755,
+   439.2,
+   3525.75
+  ],
+  "C' fixed band on the GPU, ring all-reduce (hypothetical)": [
+   2.16114,
+   119.914,
+   961.036
+  ],
+  "E' band in transit, summed at the switch (hypothetical) [high]": [
+   8.39326,
+   523.159,
+   4200.18
+  ],
+  "E' band in transit, summed at the switch (hypothetical) [free]": [
+   6.70709,
+   416.665,
+   3345.04
+  ]
+ },
+ "extrapolate_h": {
+  "A  AdamW, dense ring all-reduce": [
+   1.63007,
+   0.34006,
+   0.211059
+  ],
+  "B  DeMo top-k, all-gather": [
+   0.925839,
+   0.270098,
+   0.204524
+  ],
+  "C' fixed band on the GPU, ring all-reduce (hypothetical)": [
+   2.16114,
+   1.39854,
+   1.32228
+  ],
+  "E' band in transit, summed at the switch (hypothetical) [free]": [
+   6.70709,
+   1.46745,
+   0.943484
+  ]
+ }
+}

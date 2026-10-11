@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "training-transit-sim"
+version = "0.1.0"
+description = "A SimPy discrete-event model of data-parallel training across data centres, with gradient compression computed in transit by a photonic link module: time and energy to a target loss, hot spots and break-even points."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Brendan Lynskey" }]
+
+dependencies = [
+    "simpy>=4.1",
+    # devices and link presets; pinned at the commit the CiT hub's analysis/cit_budget.py reproduces against
+    "disagg-sim @ git+https://github.com/BrendanJamesLynskey/Disaggregated_Inference_Sim@69ffd2b8886c03f164bdb07dea954d1452169a06",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.5",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra -q"
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 130
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]

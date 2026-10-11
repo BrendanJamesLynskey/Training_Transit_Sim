@@ -1,0 +1,9 @@
+{
+ "repo": "BrendanJamesLynskey/DeMo_Fixed_Band_Experiment",
+ "commit": "b1f62d394ac79250df9ce555d3a55d85cf1cd517",
+ "path": "results/tinystories-gpu/",
+ "sha256": {
+  "results.json": "62fb0a016ba2f21ce3a3af9ae2f6d77c11202ce2e7127436f24431a7ba80e520",
+  "results.md": "bf85a2b35d1f3a5b6aed392fa0781eabe3f55a45cfc1964c769b361633752618"
+ }
+}
